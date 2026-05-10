@@ -1,0 +1,22 @@
+cff-version: 1.2.0
+message: "If you use hexa-physics in academic work, please cite as below."
+title: "hexa-physics: HEXA family substrate (n=6 invariant lattice — general physics (electromagnetism·fluid·gravity·thermo·optics·crystallography))"
+authors:
+  - name: dancinlab contributors
+    affiliation: dancinlab
+license: MIT
+repository-code: "https://github.com/dancinlab/hexa-physics"
+url: "https://github.com/dancinlab/hexa-physics"
+version: "v0.1.0"
+date-released: "2026-05-10"
+keywords:
+  - hexa-family
+  - n6-lattice
+  - physics
+  - electromagnetism
+  - fluid
+  - thermodynamics
+  - optics
+  - crystallography
+  - gravity-wave
+  - spec-catalog

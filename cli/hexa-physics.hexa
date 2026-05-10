@@ -1,0 +1,207 @@
+#!hexa strict
+// hexa-physics/cli/hexa-physics.hexa — standalone hexa-physics CLI router (🔬)
+//
+// 9-verb general physics (electromagnetism·fluid·gravity·thermo·optics·crystallography) substrate dispatcher.
+
+let VERSION = "0.1.0"
+
+let HOME = env("HOME")
+let ROOT_ENV = env("HEXA_PHYSICS_ROOT")
+
+fn root_dir() -> str {
+    if ROOT_ENV.len() > 0 { return ROOT_ENV }
+    let inferred = exec("dirname \"$(dirname \"$0\")\" 2>/dev/null || true").trim()
+    if inferred.len() > 0 { return inferred }
+    return HOME + "/.hexa-physics"
+}
+
+let ROOT = root_dir()
+let LOG_PATH = ROOT + "/state/hexa_physics_cli.log"
+
+fn verb_spec(verb: str) -> str {
+    if verb == "computational-fluid-dynamics" { return ROOT + "/computational-fluid-dynamics/computational-fluid-dynamics.md" }
+    if verb == "crystallography" { return ROOT + "/crystallography/crystallography.md" }
+    if verb == "crystallography-materials" { return ROOT + "/crystallography-materials/crystallography-materials.md" }
+    if verb == "electromagnetism" { return ROOT + "/electromagnetism/electromagnetism.md" }
+    if verb == "fluid" { return ROOT + "/fluid/fluid.md" }
+    if verb == "gravity-wave" { return ROOT + "/gravity-wave/gravity-wave.md" }
+    if verb == "light-optics" { return ROOT + "/light-optics/light-optics.md" }
+    if verb == "optics" { return ROOT + "/optics/optics.md" }
+    if verb == "thermodynamics" { return ROOT + "/thermodynamics/thermodynamics.md" }
+    return ""
+}
+
+let VERBS = ["computational-fluid-dynamics", "crystallography", "crystallography-materials", "electromagnetism", "fluid", "gravity-wave", "light-optics", "optics", "thermodynamics"]
+
+fn shq(s: str) -> str {
+    return "'" + s.replace("'", "'\\''") + "'"
+}
+
+fn has_flag(a: [str], flag: str) -> bool {
+    for x in a {
+        if x == flag { return true }
+    }
+    return false
+}
+
+fn json_mode(a: [str]) -> bool {
+    return has_flag(a, "--json")
+}
+
+fn _ts_now() -> str { return exec("date -u '+%Y-%m-%dT%H:%M:%SZ'").trim() }
+
+fn _audit(subcmd: str, args_str: str, exit_code: int) {
+    let line = "{\"ts\":\"" + _ts_now() + "\",\"caller\":\"hexa_physics_standalone\",\"subcmd\":\"hexa-physics " +
+               subcmd + "\",\"exit_code\":" + str(exit_code) + ",\"version\":\"" + VERSION + "\"}"
+    exec("mkdir -p " + shq(ROOT + "/state") + " 2>/dev/null")
+    exec("echo " + shq(line) + " >> " + shq(LOG_PATH) + " 2>/dev/null")
+}
+
+fn _file_exists(p: str) -> bool {
+    let r = exec("[ -f " + shq(p) + " ] && echo yes || echo no").trim()
+    return r == "yes"
+}
+
+fn cmd_list(a: [str]) {
+    if json_mode(a) {
+        let mut js = "{\"hexa_physics\":\"" + VERSION + "\",\"verbs_total\":9,"
+        js = js + "\"verbs\":[\"computational-fluid-dynamics\",\"crystallography\",\"crystallography-materials\",\"electromagnetism\",\"fluid\",\"gravity-wave\",\"light-optics\",\"optics\",\"thermodynamics\"],"
+        js = js + "\"verdict\":\"SPEC_CATALOG_ONLY\"}"
+        println(js)
+        return
+    }
+    println("hexa-physics " + VERSION + " — 9-verb general physics (electromagnetism·fluid·gravity·thermo·optics·crystallography) substrate (🔬)")
+    println("")
+    println("  verbs (9):")
+    for v in VERBS { println("    " + v) }
+    println("")
+    println("  to read a verb spec:")
+    println("    hexa-physics <verb>          (prints verb spec path + first lines)")
+    println("    hexa-physics selftest        (9-verb spec presence sweep)")
+}
+
+fn cmd_verb(verb: str, a: [str]) {
+    let spec = verb_spec(verb)
+    if spec == "" {
+        eprintln("hexa-physics: unknown verb '" + verb + "'")
+        eprintln("run 'hexa-physics list' for the 9-verb table")
+        _audit(verb, "unknown", 2)
+        exit(2)
+    }
+    let present = _file_exists(spec)
+    println("hexa-physics " + verb + " — substrate spec (v" + VERSION + ")")
+    println("  spec_path: " + spec)
+    if present == false {
+        eprintln("  status: MISSING")
+        _audit(verb, "missing", 1)
+        exit(1)
+    }
+    println("  status: PRESENT")
+    println("  --- first 20 lines ---")
+    let head = exec("head -20 " + shq(spec) + " 2>/dev/null")
+    println(head.trim())
+    println("  ----------------------")
+    if json_mode(a) {
+        let mut js = "{\"hexa_physics\":\"" + VERSION + "\",\"verb\":\"" + verb + "\",\"present\":true}"
+        println(js)
+    }
+    _audit(verb, "", 0)
+}
+
+fn cmd_selftest(a: [str]) {
+    let mut ok = 0
+    let mut miss: [str] = []
+    for v in VERBS {
+        let spec = verb_spec(v)
+        if _file_exists(spec) { ok = ok + 1 } else { miss = miss + [v] }
+    }
+    let total = len(VERBS)
+    println("hexa-physics selftest — verb-spec presence sweep")
+    println("  total verbs: " + str(total))
+    println("  present:     " + str(ok) + "/" + str(total))
+    if ok == total {
+        println("__HEXA_PHYSICS_SELFTEST__ PASS")
+        if json_mode(a) {
+            println("{\"hexa_physics\":\"" + VERSION + "\",\"verdict\":\"PASS\",\"present\":" + str(ok) + ",\"total\":" + str(total) + "}")
+        }
+        _audit("selftest", "", 0)
+        return
+    }
+    println("__HEXA_PHYSICS_SELFTEST__ FAIL")
+    for m in miss { println("  missing: " + m) }
+    _audit("selftest", "", 1)
+    exit(1)
+}
+
+fn cmd_version() {
+    println("hexa-physics " + VERSION)
+    println("standalone general physics (electromagnetism·fluid·gravity·thermo·optics·crystallography) substrate (extracted from canon@ded52144 on 2026-05-10)")
+    println("license: MIT")
+    println("repo:    https://github.com/dancinlab/hexa-physics")
+}
+
+fn cmd_help() {
+    println("hexa-physics " + VERSION + " — 9-verb general physics (electromagnetism·fluid·gravity·thermo·optics·crystallography) CLI (🔬)")
+    println("")
+    println("usage: hexa-physics <subcmd> [flags...]")
+    println("")
+    println("verb subcommands:")
+    println("  computational-fluid-dynamics computational fluid dynamics substrate")
+    println("  crystallography      crystallography substrate")
+    println("  crystallography-materials crystallography materials substrate")
+    println("  electromagnetism     electromagnetism substrate")
+    println("  fluid                fluid substrate")
+    println("  gravity-wave         gravity wave substrate")
+    println("  light-optics         light optics substrate")
+    println("  optics               optics substrate")
+    println("  thermodynamics       thermodynamics substrate")
+    println("")
+    println("utility subcommands:")
+    println("  list             verb table")
+    println("  selftest         9-verb spec presence sweep")
+    println("")
+    println("global flags:")
+    println("  --version        show version")
+    println("  --json           machine-parseable JSON tail")
+    println("  --help, -h       this help")
+    println("")
+    println("env:")
+    println("  HEXA_PHYSICS_ROOT       override repo root")
+}
+
+fn main() {
+    let _raw = args()
+    let mut _sidx = -1
+    let mut _i = 0
+    while _i < _raw.len() {
+        if _raw[_i].ends_with(".hexa") { _sidx = _i; break }
+        _i = _i + 1
+    }
+    let mut _user_start = 2
+    if _sidx >= 0 { _user_start = _sidx + 1 }
+
+    let mut a: [str] = ["hexa_physics_cli", "hexa_physics_router"]
+    let mut _ua = _user_start
+    while _ua < _raw.len() {
+        a = a + [_raw[_ua]]
+        _ua = _ua + 1
+    }
+    let n = len(a)
+
+    if n < 3 { cmd_help(); return }
+
+    let sub = a[2]
+
+    if sub == "--version" || sub == "-V" || sub == "version" { cmd_version(); return }
+    if has_flag(a, "--help") || has_flag(a, "-h") { cmd_help(); return }
+    if sub == "help"      { cmd_help(); return }
+    if sub == "list"      { cmd_list(a); return }
+    if sub == "selftest"  { cmd_selftest(a); return }
+
+    if verb_spec(sub) != "" { cmd_verb(sub, a); return }
+
+    eprintln("hexa-physics: unknown subcommand '" + sub + "'")
+    eprintln("run 'hexa-physics help' or 'hexa-physics list' for usage")
+    _audit(sub, "", 2)
+    exit(2)
+}

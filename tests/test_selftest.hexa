@@ -1,0 +1,24 @@
+#!hexa strict
+// tests/test_selftest.hexa — 9-verb spec-presence harness
+
+fn main() {
+    let root = env("HEXA_PHYSICS_ROOT")
+    let mut p = "cli/hexa-physics.hexa"
+    if root.len() > 0 { p = root + "/cli/hexa-physics.hexa" }
+
+    let raw = exec("HEXA_PHYSICS_ROOT=" + root + " hexa run " + p + " selftest 2>&1")
+    if raw.contains("__HEXA_PHYSICS_SELFTEST__ PASS") == false {
+        println("test_selftest: FAIL (sentinel missing)")
+        println(raw.trim())
+        exit(1)
+    }
+    if raw.contains("total verbs: 9") == false {
+        println("test_selftest: FAIL (verb count != 9)")
+        exit(1)
+    }
+    if raw.contains("present:     9/9") == false {
+        println("test_selftest: FAIL (presence != 9/9)")
+        exit(1)
+    }
+    println("test_selftest: PASS — 9/9 hexa-physics verb specs present")
+}
