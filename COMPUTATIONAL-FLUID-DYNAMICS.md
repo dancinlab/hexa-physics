@@ -1,3 +1,6 @@
+<!-- @canonical: canon@ded52144:domains/physics/computational-fluid-dynamics/computational-fluid-dynamics.md -->
+<!-- @extracted: 2026-05-10 -->
+<!-- @md5_at_extraction: 242c0578a22c204c3c0f28b6868df9b2 -->
 <!-- gold-standard: shared/harness/sample.md -->
 ---
 domain: computational-fluid-dynamics
