@@ -5,6 +5,7 @@
 > Sister-rollup of [hexa-mind](https://github.com/dancinlab/hexa-mind),
 > extracted from `canon@ded52144` on 2026-05-10.
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20115004.svg)](https://doi.org/10.5281/zenodo.20115004)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Version](https://img.shields.io/badge/version-0.1.0-informational.svg)](hexa.toml)
 [![Verbs: 9](https://img.shields.io/badge/verbs-9-blue.svg)](#verbs)
