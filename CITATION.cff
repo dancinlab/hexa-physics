@@ -2,7 +2,10 @@ cff-version: 1.2.0
 message: "If you use hexa-physics in academic work, please cite as below."
 title: "hexa-physics: HEXA family substrate (n=6 invariant lattice — general physics (electromagnetism·fluid·gravity·thermo·optics·crystallography))"
 authors:
-  - name: dancinlab contributors
+  - family-names: Park
+    given-names: Min Woo
+    alias: dancinlab
+    email: nerve011235@gmail.com
     affiliation: dancinlab
 license: MIT
 repository-code: "https://github.com/dancinlab/hexa-physics"
