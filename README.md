@@ -22,22 +22,6 @@ the larger `canon` monorepo; this standalone repo extracts 9 leaves
 
 ---
 
-## Verbs
-
-| Verb | Spec | Concern | Status |
-|------|------|---------|--------|
-| `computational-fluid-dynamics` | [computational-fluid-dynamics/computational-fluid-dynamics.md](computational-fluid-dynamics/computational-fluid-dynamics.md) | computational fluid dynamics substrate | grounded |
-| `crystallography` | [crystallography/crystallography.md](crystallography/crystallography.md) | crystallography substrate | grounded |
-| `crystallography-materials` | [crystallography-materials/crystallography-materials.md](crystallography-materials/crystallography-materials.md) | crystallography materials substrate | grounded |
-| `electromagnetism` | [electromagnetism/electromagnetism.md](electromagnetism/electromagnetism.md) | electromagnetism substrate | grounded |
-| `fluid` | [fluid/fluid.md](fluid/fluid.md) | fluid substrate | grounded |
-| `gravity-wave` | [gravity-wave/gravity-wave.md](gravity-wave/gravity-wave.md) | gravity wave substrate | grounded |
-| `light-optics` | [light-optics/light-optics.md](light-optics/light-optics.md) | light optics substrate | grounded |
-| `optics` | [optics/optics.md](optics/optics.md) | optics substrate | grounded |
-| `thermodynamics` | [thermodynamics/thermodynamics.md](thermodynamics/thermodynamics.md) | thermodynamics substrate | grounded |
-
----
-
 ## n=6 master identity
 
 ```
