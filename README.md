@@ -57,20 +57,20 @@ the larger `canon` monorepo; this standalone repo extracts 9 leaves
 
 ## Install
 
-### Via `hx` (works today)
-
 ```bash
-hx install hexa-physics --entry cli/hexa-physics.hexa
-hexa-physics --version           # → 0.1.0
-hexa-physics selftest            # → 9/9 verb specs PASS
+# 1. Install hexa-lang (gives you `hexa` + `hx` package manager)
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/dancinlab/hexa-lang/main/install.sh)"
+
+# 2. Install hexa-physics
+hx install hexa-physics
 ```
 
-### CLI subcommands
+## Run
 
 ```bash
-hexa-physics list                # 9-verb table
-hexa-physics <verb>              # read verb spec (path + first 20 lines)
-hexa-physics selftest            # 9/9 spec presence sweep
+hexa-physics <verb>     # render any of 9 verbs (see `hexa-physics list`)
+hexa-physics list       # verb table
+hexa-physics selftest   # 9-verb spec presence sweep
 ```
 
 ---
