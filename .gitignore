@@ -1,0 +1,10 @@
+# hexa-physics .gitignore — runtime artifacts only.
+
+# Runtime state markers (audit/CLI logs) — generated at exec time, not source.
+state/markers/*.marker
+state/*.log
+
+# Python build artifacts.
+__pycache__/
+*.pyc
+.pytest_cache/

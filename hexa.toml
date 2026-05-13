@@ -76,9 +76,11 @@ verb_count        = 9
 verbs_total       = 9
 verbs_wired       = 0
 verbs_spec        = 9
-verifiers_pass    = "TBD (initial extraction)"
+verifiers_pass    = "2/2 (n6_arithmetic + spec_inventory)"
+pytest_pass       = "10/10 (-m auto)"
 verdict           = "SPEC_CATALOG_ONLY"
 extracted_from    = "canon@ded52144 on 2026-05-10"
+closure_wave      = "Wave N (2026-05-13) — verify/ + tests/ + build/ wired"
 
 # ── Scope honesty ─────────────────────────────────────────
 [scope]
