@@ -1,18 +1,30 @@
-# 🔬 hexa-physics — n=6 electromagnetism, fluid dynamics, gravity-waves, thermodynamics, optics, crystallography substrate (9-verb library)
+<p align="center">
+  <img src="docs/logo.svg" width="140" alt="hexa-physics">
+</p>
+
+<h1 align="center">🔬 hexa-physics</h1>
+
+<p align="center"><strong>HEXA-Phys Family</strong> — physics · 9-verb closed-form spec catalog · n=6 lattice</p>
+
+<p align="center">
+  <a href="LICENSE"><img alt="License" src="https://img.shields.io/badge/license-MIT-blue"></a>
+  <a href="verify/"><img alt="Verify" src="https://img.shields.io/badge/verifiers-2%2F2-brightgreen"></a>
+  <img alt="Spec" src="https://img.shields.io/badge/version-v0.1.0-success">
+  <img alt="Verbs" src="https://img.shields.io/badge/verbs-9-informational">
+  <img alt="Specs" src="https://img.shields.io/badge/specs-9%2F9-informational">
+  <img alt="Identity" src="https://img.shields.io/badge/n%3D6-σ·φ%20%3D%20n·τ%20%3D%2024-informational">
+  <img alt="Sibling" src="https://img.shields.io/badge/sibling-hexa--bio%20·%20hexa--matter%20·%20hexa--space-blueviolet">
+  <a href="https://doi.org/10.5281/zenodo.20115004"><img alt="DOI" src="https://zenodo.org/badge/DOI/10.5281/zenodo.20115004.svg"></a>
+</p>
+
+<p align="center">physics · n=6 · σ=12 · τ=4 · φ=2 · J₂=24 · electromagnetism · fluid · gravity-wave · thermodynamics · optics · crystallography · CFD · light-optics · real-limits-first</p>
+
+---
 
 > 9-verb general physics (electromagnetism·fluid·gravity·thermo·optics·crystallography) substrate organized as a closed-form spec catalog.
 > Each verb derives every parameter from σ(6)=12, τ(6)=4, φ(6)=2 number theory.
 > Sister-rollup of [hexa-mind](https://github.com/dancinlab/hexa-mind),
 > extracted from `canon@ded52144` on 2026-05-10.
-
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20115004.svg)](https://doi.org/10.5281/zenodo.20115004)
-[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/version-0.1.0-informational.svg)](hexa.toml)
-[![Verbs: 9](https://img.shields.io/badge/verbs-9-blue.svg)](#verbs)
-[![Verifiers: 2/2](https://img.shields.io/badge/verifiers-2%2F2_PASS-brightgreen.svg)](verify/)
-[![Specs: 9/9](https://img.shields.io/badge/specs-9%2F9_present-brightgreen.svg)](verify/spec_inventory.py)
-[![Real-limits-first](https://img.shields.io/badge/limits-real_first-blue.svg)](LATTICE_POLICY.md)
-[![n=6 lattice](https://img.shields.io/badge/n=6-σ·φ_=_n·τ_=_24-blue.svg)](#n6-master-identity)
 
 ---
 
@@ -124,6 +136,35 @@ What is **out of scope** at v0.1.0:
 - Bridging to lab instrumentation (specs only).
 
 ---
+
+## Repo layout
+
+```
+hexa-physics/
+├── README.md                       # this file
+├── AGENTS.tape                     # governance + identity (.tape v1.2)
+├── CLAUDE.md                       # → AGENTS.tape
+├── LATTICE_POLICY.md               # real-limits-first verification policy
+├── LIMIT_BREAKTHROUGH.md           # per-domain HARD/SOFT_WALL audit
+├── hexa.toml                       # package manifest
+├── CITATION.cff                    # citation metadata
+├── docs/                           # logo · human docs
+├── cli/                            # hexa-physics CLI dispatcher (.hexa)
+├── build/                          # Makefile · CI surface
+├── verify/                         # Python verifiers (n6 + spec inventory)
+├── tests/                          # pytest harness (-m auto)
+├── papers/                         # peer-citable spec drafts
+├── origins/                        # canon@ded52144 extraction records
+├── electromagnetism/               # EM verb spec
+├── fluid/                          # fluid dynamics verb spec
+├── computational-fluid-dynamics/   # CFD verb spec
+├── gravity-wave/                   # GR / gravity-wave verb spec
+├── thermodynamics/                 # thermo verb spec
+├── optics/                         # optics verb spec
+├── light-optics/                   # light-optics verb spec
+├── crystallography/                # crystallography verb spec
+└── crystallography-materials/      # crystallography-materials verb spec
+```
 
 ## License
 
